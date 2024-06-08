@@ -1,24 +1,46 @@
 body {
   font-family: "Lato", sans-serif;
+  overflow: hidden;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #f1f1f1b5;
+  padding: 10px 10px;
+}
+.topnav a {
+  float: center;
+  color: black;
+  text-align: center;
+  padding: 40px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
 }
 
 .sidenav {
-  width: 280px;
+  width: 380px;
   position: fixed;
   z-index: 1;
-  top: 20px;
+  top: 60px;
   left: 10px;
-  bottom: 20px;
+  bottom: 50px;
   background: #eee;
   overflow-x: hidden;
-  padding: 8px 0;
+  padding: 5px 0;
+}
+
+.sidenav h1 input {
+  position: fixed !important;
+  display: flexbox;
 }
 
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 10px;
-  color: #2196F3;
+  color: #2196f3;
   display: block;
 }
 
@@ -27,12 +49,65 @@ body {
 }
 
 .map {
-  margin-left: 290px; /* Same width as the sidebar + left position in px */
+  margin-left: 390px; /* Same width as the sidebar + left position in px */
   font-size: 20px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
+  padding: 5px 10px;
+  overflow-x: hidden;
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f1f1f1b5;
+  color: rgb(12, 11, 11);
+  text-align: center;
+}
+
+.ol-popup {
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+.ol-popup:after,
+.ol-popup:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.ol-popup:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: white;
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+.ol-popup:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-top-color: black;
+  border-width: 11px;
+  margin-left: -11px;
 }

@@ -2,28 +2,29 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import pool from '../../lib/db';
 import { FeatureCollection, Feature, Polygon } from 'geojson'; // Import Feature and Polygon types
 
-interface Boundary {
-  sd_ref: string;
-  adm1_en: string;
-  infras: number;
-  numwards: number;
-  geom: GeoJSON.Polygon; // Assuming the geometry type is Polygon
+interface Farmlands {
+    uniq_id: string;
+    first_name: string;
+    last_name: string;
+    central_ma: string;
+    gender: string;
+    geom: Polygon; // Assuming the geometry type is Polygon
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const client = await pool.connect();
-    const result = await client.query<Boundary>('SELECT sd_ref, adm1_en, infras, numwards, ST_AsGeoJSON(geom)::json AS geom FROM public.senatorial_boundary');
+    const result = await client.query<Farmlands>('SELECT uniq_id, first_name, last_name, gender, ST_AsGeoJSON(geom)::json AS geom FROM public.farm_boundary2');
     client.release();
 
     // Format data as GeoJSON FeatureCollection
-    const features: Feature<Polygon, { sd_ref: string; adm1_en: string, infras: number, numwards: number, }>[] = result.rows.map(row => {
+    const features: Feature<Polygon, { uniq_id: string; first_name: string; last_name: string; gender: string; }>[] = result.rows.map(row => {
       const geometry = row.geom;
       const properties = {
-        sd_ref: row.sd_ref,
-        adm1_en: row.adm1_en,
-        infras: row.infras,
-        numwards: row.numwards,
+        uniq_id: row.uniq_id,
+        first_name: row.first_name,
+        last_name: row.last_name,
+        gender: row.gender,
         // Add more properties as needed
       };
       return {
